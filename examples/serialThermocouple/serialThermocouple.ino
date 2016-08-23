@@ -2,7 +2,7 @@
 #include "MAX31855_SPI.h"
 
 byte cs = 2;
-MAX31855_SPI *max31855;
+MAX31855_SPI * max31855;
 
 void setup() {
   max31855 = new MAX31855_SPI(cs);
