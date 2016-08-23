@@ -8,13 +8,16 @@ class MAX31855_SPI {
   public:
     explicit MAX31855_SPI(byte cs);
 
+    /* Returns internal temperature in degrees celsius. */
     double readInternal();
+
+    /* Returns temperature in degrees celsius. */
     double read();
 
   private:
-    long spiRead();
+    uint32_t spiRead();
 
-    byte _cs;
+    uint8_t _cs;
     SPISettings _spiSettings;
 };
 

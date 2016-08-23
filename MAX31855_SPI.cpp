@@ -23,8 +23,7 @@ double MAX31855_SPI::readInternal() {
     internal = tmp;
   }
 
-  internal *= 0.0625;
-
+  internal *= 0.0625D;
   return internal;
 }
 
@@ -44,23 +43,22 @@ double MAX31855_SPI::read() {
       value = 0xFFFFC000 | (value & 0x0003FFFF);
   }
 
-  double temp = value * 0.25;
-
+  double temp = value * 0.25D;
   return temp;
 }
 
-long MAX31855_SPI::spiRead() {
-  int i;
+uint32_t MAX31855_SPI::spiRead() {
+  uint8_t i;
 
   union bytes_to_uint32 {
-      byte bytes[4];
-      long integer;
+    uint8_t bytes[4];
+    uint32_t integer;
   } buffer;
 
   SPI.beginTransaction(_spiSettings);
   digitalWrite(_cs, LOW);
 
-  for(i=3; i>=0; i--) {
+  for(i = 3; i >= 0; i--) {
     buffer.bytes[i] = SPI.transfer(0x00);
   }
 
