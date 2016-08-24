@@ -26,9 +26,17 @@ void setup() {
 }
 
 void loop() {
+  /*
+  temperatures_t temps = max31855->readBoth();
+  temps.internal
+  temps.temp
+  */
   double internal = max31855->readInternal();
   double temp = max31855->read();
 
   Serial.println(temp, 2);
 }
 ```
+
+## Room for improvement
+The library is using **digitalWrite** which comes with a bit of overhead in comparison to addressing the port directly. But comes with the convenience of being able to use every pin as CS.
