@@ -75,8 +75,8 @@ uint32_t MAX31855_SPI::spiRead() {
   SPI.beginTransaction(_spiSettings);
   digitalWrite(_cs, LOW);
 
-  for(uint8_t i = 0; i < 4; i++) {
-    buffer.bytes[i] = SPI.transfer(0x00);
+  for(uint8_t i = 4; i > 0; i--) {
+    buffer.bytes[i - 1] = SPI.transfer(0x00);
   }
 
   digitalWrite(_cs, HIGH);

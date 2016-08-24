@@ -20,7 +20,11 @@ class MAX31855_SPI {
     double read();
 
     /* Returns a temperatures struct containing internal and measured
-     * temperature
+     * temperature.
+     *
+     * This method is faster then reading internal and measured temp
+     * seperately, since it requires only one SPI read of 4 bytes instead of
+     * two seperate ones.
      */
     temperatures_t readBoth();
 
