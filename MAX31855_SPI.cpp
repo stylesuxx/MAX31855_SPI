@@ -67,8 +67,6 @@ double MAX31855_SPI::getInternal(uint32_t value) {
 }
 
 uint32_t MAX31855_SPI::spiRead() {
-  uint8_t i;
-
   union bytes_to_uint32 {
     uint8_t bytes[4];
     uint32_t integer;
@@ -77,8 +75,8 @@ uint32_t MAX31855_SPI::spiRead() {
   SPI.beginTransaction(_spiSettings);
   digitalWrite(_cs, LOW);
 
-  for(i = 4; i > 0; i--) {
-    buffer.bytes[i - 1] = SPI.transfer(0x00);
+  for(uint8_t i = 0; i < 4; i++) {
+    buffer.bytes[i] = SPI.transfer(0x00);
   }
 
   digitalWrite(_cs, HIGH);
