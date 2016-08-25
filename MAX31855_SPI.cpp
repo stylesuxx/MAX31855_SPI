@@ -3,10 +3,6 @@
 MAX31855_SPI::MAX31855_SPI(byte cs) {
   _cs = cs;
 
-  _spiSettings = SPISettings(20000000, MSBFIRST, SPI_MODE0);
-  _multiplierInternal = 0.25D;
-  _multiplierTemp =  0.0625D;
-
   pinMode(_cs, OUTPUT);
   digitalWrite(_cs, HIGH);
 }
@@ -45,7 +41,7 @@ double MAX31855_SPI::getTemp(uint32_t value) {
     value = 0xFFFFC000 | (value & 0x0003FFFF);
   }
 
-  double temp = value * _multiplierInternal;
+  double temp = value * 0.25D;
   return temp;
 }
 
@@ -62,7 +58,7 @@ double MAX31855_SPI::getInternal(uint32_t value) {
     internal = tmp;
   }
 
-  internal *= _multiplierTemp;
+  internal *= 0.0625D;
   return internal;
 }
 
@@ -72,7 +68,7 @@ uint32_t MAX31855_SPI::spiRead() {
     uint32_t integer;
   } buffer;
 
-  SPI.beginTransaction(_spiSettings);
+  SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE0));
   digitalWrite(_cs, LOW);
 
   for(uint8_t i = 4; i > 0; i--) {

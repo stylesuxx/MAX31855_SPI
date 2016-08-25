@@ -13,11 +13,11 @@ class MAX31855_SPI {
   public:
     explicit MAX31855_SPI(byte cs);
 
-    /* Returns internal temperature in degrees celsius. */
-    double readInternal();
-
     /* Returns temperature in degrees celsius. */
     double read();
+
+    /* Returns internal temperature in degrees celsius. */
+    double readInternal();
 
     /* Returns a temperatures struct containing internal and measured
      * temperature.
@@ -34,9 +34,6 @@ class MAX31855_SPI {
     double getTemp(uint32_t value);
 
     uint8_t _cs;
-    double _multiplierInternal;
-    double _multiplierTemp;
-    SPISettings _spiSettings;
 };
 
 #endif
